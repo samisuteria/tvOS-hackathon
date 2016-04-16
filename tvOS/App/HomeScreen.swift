@@ -36,6 +36,8 @@ class HomeScreen: UIViewController {
 	
 	private func configureSubviews() {
 		mainView.backgroundColor = UIColor.whiteColor()
+		songList.delegate = self
+		songList.dataSource = self
 		songList.backgroundColor = UIColor.grayColor()
 		songList.registerClass(SongListItem.self, forCellReuseIdentifier: Constants.cellReuseID)
 		songList.rowHeight = UITableViewAutomaticDimension
