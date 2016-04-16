@@ -6,20 +6,19 @@
 //  Copyright © 2016 CGRekt. All rights reserved.
 //
 
-import UIKit
 import AVKit
 
-class TrackPlayer: UIView {
-
-	private var audioPlayer: AVPlayer
+class TrackPlayer: AVPlayer {
 	
-	init(frame: CGRect, url: NSURL!) {
-		audioPlayer = AVPlayer(URL: url)
-		super.init(frame: frame)
-		backgroundColor = UIColor.purpleColor()
+	override init() {
+		super.init()
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	override init(playerItem item: AVPlayerItem) {
+		super.init(playerItem: item)
+	}
+	
+	override init(URL: NSURL) {
+		super.init(URL: URL)
 	}
 }
