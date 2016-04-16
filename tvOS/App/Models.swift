@@ -11,3 +11,4 @@ struct User {
     let name: String
     let emoji: String
 }
+

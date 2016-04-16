@@ -1,5 +1,6 @@
 import Foundation
 import NPAudioStream
+import Parse
 
 class SoundCloudClient: NSObject {
     
@@ -7,6 +8,7 @@ class SoundCloudClient: NSObject {
     
     private var currentIndex = 0
     private var tracks = [Track]()
+    var session: Session!
     
     private let SoundCloud = (
         clientID: "4f42baeb1a55ace1b73df9b19ba08107",
@@ -18,6 +20,9 @@ class SoundCloudClient: NSObject {
     override init() {
         super.init()
         audioStream.delegate = self
+        session = Session()
+        session.name = RandomName.generateRandomName()
+        session.saveInBackground()
     }
     
     private func createURL(soundcloudTrackID: String) -> NSURL? {
