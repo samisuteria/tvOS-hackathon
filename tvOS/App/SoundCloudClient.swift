@@ -37,9 +37,11 @@ extension SoundCloudClient: NPAudioStreamDelegate {
 extension SoundCloudClient {
     
     func addTrack(track: Track) {
-        tracks.append(track)
         if let url = createURL(track.soundcloudID) {
+            tracks.append(track)
             audioStream.urls.append(url)
+        } else {
+            print("error track to the list: \(track)")
         }
     }
     
@@ -50,9 +52,12 @@ extension SoundCloudClient {
     }
     
     func play() {
-        if currentIndex < tracks.count {
-            audioStream.selectIndexForPlayback(currentIndex)
-        }
+        audioStream.play()
+    }
+    
+    func pause() {
+        audioStream.pause()
+        
     }
 }
 
