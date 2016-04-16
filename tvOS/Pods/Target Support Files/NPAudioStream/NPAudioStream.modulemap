@@ -1,0 +1,6 @@
+framework module NPAudioStream {
+  umbrella header "NPAudioStream-umbrella.h"
+
+  export *
+  module * { export * }
+}
