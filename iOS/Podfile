@@ -4,3 +4,4 @@ use_frameworks!
 
 pod 'SnapKit'
 pod 'Alamofire'
+pod 'Socket.IO-Client-Swift', '~> 6.1.0'
