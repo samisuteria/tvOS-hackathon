@@ -1,15 +1,16 @@
 import UIKit
+import AVKit
 
 class HomeScreen: UIViewController {
 	
 	private var mainView: UIView
 	private var songList: UITableView
-	private var playButton: UIButton
-	private var skipButton: UIButton
-	private var songName: UILabel
-	private var trackTime: UIView
+	private var trackPlayer: TrackPlayer
+	private var trackPlayerView: TrackPlayerView
 	
 	private struct Constants {
+		static let trackPlayerHeight: CGFloat = 250
+		static let trackPlayerSpacerWidthRatio: CGFloat = 1 / 10
 		static let mainViewWidthRatio: CGFloat = 3 / 4
 		static let tableViewWidthRatio: CGFloat = 1 / 4
 		static let cellReuseID = "songListCellID"
@@ -18,10 +19,10 @@ class HomeScreen: UIViewController {
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
-		playButton = UIButton(type: .System)
-		skipButton = UIButton(type: .System)
-		songName = UILabel(frame: CGRect.zero)
-		trackTime = UIView(frame: CGRect.zero)
+		// FIXME: use real url
+		let startingURL = NSURL(string: "http://api.soundcloud.com/tracks/209315983")
+		trackPlayer = TrackPlayer(URL: startingURL!)
+		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", avPlayer: trackPlayer)
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
@@ -36,11 +37,14 @@ class HomeScreen: UIViewController {
 	
 	private func configureSubviews() {
 		mainView.backgroundColor = UIColor.whiteColor()
+		
 		songList.delegate = self
 		songList.dataSource = self
 		songList.backgroundColor = UIColor.grayColor()
 		songList.registerClass(SongListItem.self, forCellReuseIdentifier: Constants.cellReuseID)
 		songList.rowHeight = UITableViewAutomaticDimension
+
+		mainView.addSubview(trackPlayerView)
 		view.addSubview(mainView)
 		view.addSubview(songList)
 	}
@@ -48,7 +52,10 @@ class HomeScreen: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		mainView.frame = CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.mainViewWidthRatio), height: view.bounds.size.height)
-		songList.frame = CGRect(x: mainView.frame.maxX, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: view.bounds.size.height)
+		songList.frame = CGRect(x: mainView.bounds.maxX, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: view.bounds.size.height)
+		
+		let trackPlayerSpacing = floor(mainView.bounds.width * Constants.trackPlayerSpacerWidthRatio)
+		trackPlayerView.frame = CGRect(x: trackPlayerSpacing, y: view.bounds.maxY - Constants.trackPlayerHeight, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: Constants.trackPlayerHeight)
 	}
 	
 }
