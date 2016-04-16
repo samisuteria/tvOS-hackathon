@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B570FB81CC2BEFF0055B7D6 /* SoundCloudClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FB71CC2BEFF0055B7D6 /* SoundCloudClient.swift */; };
+		1B570FBA1CC2CE410055B7D6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FB91CC2CE410055B7D6 /* Models.swift */; };
 		1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE831CC297AB004767AA /* AppDelegate.swift */; };
 		1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE851CC297AB004767AA /* HomeScreen.swift */; };
 		1B6FBE8B1CC297AB004767AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6FBE8A1CC297AB004767AA /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B570FB71CC2BEFF0055B7D6 /* SoundCloudClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudClient.swift; sourceTree = "<group>"; };
+		1B570FB91CC2CE410055B7D6 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		1B6FBE801CC297AB004767AA /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6FBE831CC297AB004767AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6FBE851CC297AB004767AA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -38,6 +42,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B570FB61CC2BEEE0055B7D6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1B570FB71CC2BEFF0055B7D6 /* SoundCloudClient.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		1B6FBE771CC297AB004767AA = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +74,8 @@
 				1B6FBE831CC297AB004767AA /* AppDelegate.swift */,
 				1B6FBE851CC297AB004767AA /* HomeScreen.swift */,
 				B4BAEB981CC2B76600C6A743 /* Main Screen UI */,
+				1B570FB61CC2BEEE0055B7D6 /* Networking */,
+				1B570FB91CC2CE410055B7D6 /* Models.swift */,
 				1B6FBE8A1CC297AB004767AA /* Assets.xcassets */,
 				1B6FBE8C1CC297AC004767AA /* Info.plist */,
 			);
@@ -213,6 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B570FB81CC2BEFF0055B7D6 /* SoundCloudClient.swift in Sources */,
+				1B570FBA1CC2CE410055B7D6 /* Models.swift in Sources */,
 				B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */,
 				1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */,
 				1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */,
