@@ -9,10 +9,6 @@ struct RandomName {
     func generateRandomName() -> String {
         return basicColors.randomItem() + basicEmotions.randomItem() + basicAnimals.randomItem()
     }
-    
-    
-    
-    
 }
 
 extension Array {
