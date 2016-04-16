@@ -5,7 +5,8 @@ class SoundCloudClient: NSObject {
     
     static let sharedClient = SoundCloudClient()
     
-    private var tracks = [String]()
+    private var currentIndex = 0
+    private var tracks = [Track]()
     
     private let SoundCloud = (
         clientID: "4f42baeb1a55ace1b73df9b19ba08107",
@@ -17,34 +18,40 @@ class SoundCloudClient: NSObject {
     override init() {
         super.init()
         audioStream.delegate = self
-        
-        addTrack("209315983")
     }
     
-    private func createURL(trackID: String) -> NSURL? {
-        let urlString = "https://api.soundcloud.com/tracks/\(trackID)/stream?client_id=\(SoundCloud.clientID)"
+    private func createURL(soundcloudTrackID: String) -> NSURL? {
+        let urlString = "https://api.soundcloud.com/tracks/\(soundcloudTrackID)/stream?client_id=\(SoundCloud.clientID)"
         return NSURL(string: urlString)
     }
-    
-    
 }
 
 extension SoundCloudClient: NPAudioStreamDelegate {
-    
+    func audioStream(audioStream: NPAudioStream!, didBeginPlaybackForTrackAtIndex index: Int) {
+        currentIndex = index
+    }
 }
 
 //Public API
 
 extension SoundCloudClient {
-    func addTrack(trackID: String){
-        tracks.append(trackID)
+    
+    func addTrack(track: Track) {
+        tracks.append(track)
+        if let url = createURL(track.soundcloudID) {
+            audioStream.urls.append(url)
+        }
     }
     
-    func playNext() {
-        let trackID = tracks.removeFirst()
-        if let url = createURL(trackID) {
-            audioStream.urls = [url]
-            audioStream.selectIndexForPlayback(0)
+    func addTracks(tracks: [Track]) {
+        tracks.forEach { (track: Track) in
+            addTrack(track)
+        }
+    }
+    
+    func play() {
+        if currentIndex < tracks.count {
+            audioStream.selectIndexForPlayback(currentIndex)
         }
     }
 }
@@ -52,3 +59,4 @@ extension SoundCloudClient {
 //Test Tracks
 //api.soundcloud.com/tracks/221228549
 //api.soundcloud.com/tracks/209315983 //shia the tank engine
+//api.soundcloud.com/tracks/121879277
