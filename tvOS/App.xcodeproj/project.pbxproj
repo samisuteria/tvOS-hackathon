@@ -8,19 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		1B570FB81CC2BEFF0055B7D6 /* SoundCloudClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FB71CC2BEFF0055B7D6 /* SoundCloudClient.swift */; };
-		1B570FBA1CC2CE410055B7D6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FB91CC2CE410055B7D6 /* Models.swift */; };
+		1B570FBA1CC2CE410055B7D6 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FB91CC2CE410055B7D6 /* Track.swift */; };
 		1B570FC01CC2D8950055B7D6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FBF1CC2D8950055B7D6 /* Session.swift */; };
 		1B570FC21CC2DAFA0055B7D6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B570FC11CC2DAFA0055B7D6 /* Helpers.swift */; };
 		1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE831CC297AB004767AA /* AppDelegate.swift */; };
 		1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE851CC297AB004767AA /* HomeScreen.swift */; };
 		1B6FBE8B1CC297AB004767AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6FBE8A1CC297AB004767AA /* Assets.xcassets */; };
 		B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */; };
+		B4BAEB9A1CC2D51800C6A743 /* TrackPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB991CC2D51800C6A743 /* TrackPlayerView.swift */; };
+		B4BAEB9C1CC2EC6D00C6A743 /* TrackPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB9B1CC2EC6D00C6A743 /* TrackPlayer.swift */; };
+		B4BAEB9E1CC2EE3000C6A743 /* TrackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB9D1CC2EE3000C6A743 /* TrackManager.swift */; };
+		B4BAEBA11CC2EF1900C6A743 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEBA01CC2EF1900C6A743 /* SessionManager.swift */; };
+		B4BAEBA31CC2EF5800C6A743 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEBA21CC2EF5800C6A743 /* User.swift */; };
 		E3190AC4E5A5E3F02F34ED24 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA40CD5875162BF3343A514C /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B570FB71CC2BEFF0055B7D6 /* SoundCloudClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudClient.swift; sourceTree = "<group>"; };
-		1B570FB91CC2CE410055B7D6 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		1B570FB91CC2CE410055B7D6 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		1B570FBF1CC2D8950055B7D6 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		1B570FC11CC2DAFA0055B7D6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		1B6FBE801CC297AB004767AA /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +35,11 @@
 		1B6FBE8C1CC297AC004767AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85130C52DCBD4274082A795F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListItem.swift; sourceTree = "<group>"; };
+		B4BAEB991CC2D51800C6A743 /* TrackPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayerView.swift; sourceTree = "<group>"; };
+		B4BAEB9B1CC2EC6D00C6A743 /* TrackPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayer.swift; sourceTree = "<group>"; };
+		B4BAEB9D1CC2EE3000C6A743 /* TrackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackManager.swift; sourceTree = "<group>"; };
+		B4BAEBA01CC2EF1900C6A743 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		B4BAEBA21CC2EF5800C6A743 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B9D4FA79F132EE2227E8F0FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DA40CD5875162BF3343A514C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -57,8 +67,10 @@
 		1B570FBE1CC2D88B0055B7D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1B570FB91CC2CE410055B7D6 /* Models.swift */,
+				1B570FB91CC2CE410055B7D6 /* Track.swift */,
+				B4BAEBA21CC2EF5800C6A743 /* User.swift */,
 				1B570FBF1CC2D8950055B7D6 /* Session.swift */,
+				B4BAEB9B1CC2EC6D00C6A743 /* TrackPlayer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -89,6 +101,7 @@
 				B4BAEB981CC2B76600C6A743 /* Main Screen UI */,
 				1B570FB61CC2BEEE0055B7D6 /* Networking */,
 				1B570FBE1CC2D88B0055B7D6 /* Models */,
+				B4BAEB9F1CC2EE3B00C6A743 /* Managers */,
 				1B570FC11CC2DAFA0055B7D6 /* Helpers.swift */,
 				1B6FBE8A1CC297AB004767AA /* Assets.xcassets */,
 				1B6FBE8C1CC297AC004767AA /* Info.plist */,
@@ -108,8 +121,18 @@
 			isa = PBXGroup;
 			children = (
 				B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */,
+				B4BAEB991CC2D51800C6A743 /* TrackPlayerView.swift */,
 			);
 			name = "Main Screen UI";
+			sourceTree = "<group>";
+		};
+		B4BAEB9F1CC2EE3B00C6A743 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B4BAEB9D1CC2EE3000C6A743 /* TrackManager.swift */,
+				B4BAEBA01CC2EF1900C6A743 /* SessionManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		BEAC97E93A178226CA189F04 /* Pods */ = {
@@ -243,11 +266,16 @@
 			files = (
 				1B570FB81CC2BEFF0055B7D6 /* SoundCloudClient.swift in Sources */,
 				1B570FC21CC2DAFA0055B7D6 /* Helpers.swift in Sources */,
-				1B570FBA1CC2CE410055B7D6 /* Models.swift in Sources */,
+				1B570FBA1CC2CE410055B7D6 /* Track.swift in Sources */,
+				B4BAEB9C1CC2EC6D00C6A743 /* TrackPlayer.swift in Sources */,
 				1B570FC01CC2D8950055B7D6 /* Session.swift in Sources */,
 				B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */,
 				1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */,
+				B4BAEB9E1CC2EE3000C6A743 /* TrackManager.swift in Sources */,
+				B4BAEBA31CC2EF5800C6A743 /* User.swift in Sources */,
+				B4BAEB9A1CC2D51800C6A743 /* TrackPlayerView.swift in Sources */,
 				1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */,
+				B4BAEBA11CC2EF1900C6A743 /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
