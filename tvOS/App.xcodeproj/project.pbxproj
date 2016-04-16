@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE831CC297AB004767AA /* AppDelegate.swift */; };
-		1B6FBE861CC297AB004767AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE851CC297AB004767AA /* ViewController.swift */; };
+		1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE851CC297AB004767AA /* HomeScreen.swift */; };
 		1B6FBE8B1CC297AB004767AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6FBE8A1CC297AB004767AA /* Assets.xcassets */; };
+		B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */; };
 		E3190AC4E5A5E3F02F34ED24 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA40CD5875162BF3343A514C /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B6FBE801CC297AB004767AA /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6FBE831CC297AB004767AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1B6FBE851CC297AB004767AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1B6FBE851CC297AB004767AA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		1B6FBE8A1CC297AB004767AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B6FBE8C1CC297AC004767AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85130C52DCBD4274082A795F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListItem.swift; sourceTree = "<group>"; };
 		B9D4FA79F132EE2227E8F0FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DA40CD5875162BF3343A514C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -58,7 +60,8 @@
 			isa = PBXGroup;
 			children = (
 				1B6FBE831CC297AB004767AA /* AppDelegate.swift */,
-				1B6FBE851CC297AB004767AA /* ViewController.swift */,
+				1B6FBE851CC297AB004767AA /* HomeScreen.swift */,
+				B4BAEB981CC2B76600C6A743 /* Main Screen UI */,
 				1B6FBE8A1CC297AB004767AA /* Assets.xcassets */,
 				1B6FBE8C1CC297AC004767AA /* Info.plist */,
 			);
@@ -71,6 +74,14 @@
 				DA40CD5875162BF3343A514C /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4BAEB981CC2B76600C6A743 /* Main Screen UI */ = {
+			isa = PBXGroup;
+			children = (
+				B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */,
+			);
+			name = "Main Screen UI";
 			sourceTree = "<group>";
 		};
 		BEAC97E93A178226CA189F04 /* Pods */ = {
@@ -202,7 +213,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B6FBE861CC297AB004767AA /* ViewController.swift in Sources */,
+				B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */,
+				1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */,
 				1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
