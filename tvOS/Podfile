@@ -2,7 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :tvos, '9.0'
 use_frameworks!
 
-pod "SnapKit"
-pod "Alamofire"
+pod 'SnapKit'
+pod 'Alamofire'
 pod 'Fabric'
 pod 'Digits'
+pod 'NPAudioStream', :git => 'https://github.com/NoonPacific/NPAudioStream.git'
