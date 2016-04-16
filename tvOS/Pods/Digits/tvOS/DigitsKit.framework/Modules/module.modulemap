@@ -1,0 +1,15 @@
+framework module DigitsKit {
+    umbrella header "DigitsKit.h"
+
+    export *
+    module * { export * }
+
+    header "DGTAppearance.h"
+    header "DGTAssistedAuthViewController.h"
+    header "DGTErrors.h"
+    header "DGTOAuthSigning.h"
+    header "DGTSession.h"
+    header "DGTSessionUpdateDelegate.h"
+    header "Digits.h"
+    header "DigitsKit.h"
+}

@@ -1,13 +1,23 @@
 PODS:
   - Alamofire (3.3.1)
+  - Digits (2.0.2):
+    - TwitterCore (= 2.0.2)
+  - Fabric (1.6.7)
   - SnapKit (0.20.0)
+  - TwitterCore (2.0.2):
+    - Fabric
 
 DEPENDENCIES:
   - Alamofire
+  - Digits
+  - Fabric
   - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Digits: a5c8ddfed18d5e0496e9b6f459f0bca44de588db
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
+  TwitterCore: 0f44d8980a6879d5205dcb4e010d15e643e56fa0
 
 COCOAPODS: 0.39.0

@@ -4,3 +4,5 @@ use_frameworks!
 
 pod "SnapKit"
 pod "Alamofire"
+pod 'Fabric'
+pod 'Digits'
