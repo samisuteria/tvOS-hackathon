@@ -2,11 +2,11 @@ import Foundation
 
 struct RandomName {
     
-    let basicColors: [String] = ["Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"]
-    let basicEmotions: [String] = ["Amused", "Bold", "Calm", "Edgy", "Guilty", "Happy", "Kind", "Magical", "Powerful", "Wise"]
-    let basicAnimals: [String] = ["Monkey", "Tiger", "Panda", "Horse", "Deer", "Pig", "Sheep", "Elephant", "Wolf", "Fox", "Bear", "Owl"]
+    static let basicColors: [String] = ["Black", "Blue", "Brown", "Gray", "Green", "Orange", "Pink", "Purple", "Red", "White", "Yellow"]
+    static let basicEmotions: [String] = ["Amused", "Bold", "Calm", "Edgy", "Guilty", "Happy", "Kind", "Magical", "Powerful", "Wise"]
+    static let basicAnimals: [String] = ["Monkey", "Tiger", "Panda", "Horse", "Deer", "Pig", "Sheep", "Elephant", "Wolf", "Fox", "Bear", "Owl"]
     
-    func generateRandomName() -> String {
+    static func generateRandomName() -> String {
         return basicColors.randomItem() + basicEmotions.randomItem() + basicAnimals.randomItem()
     }
 }
