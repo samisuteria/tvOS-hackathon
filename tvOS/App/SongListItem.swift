@@ -56,7 +56,6 @@ class SongListItem: UITableViewCell {
 		
 		contentView.addSubview(avatarIcon)
 		contentView.addSubview(songLabel)
-		
 	}
 	
 }

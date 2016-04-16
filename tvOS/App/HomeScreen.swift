@@ -5,7 +5,6 @@ class HomeScreen: UIViewController {
 	
 	private var mainView: UIView
 	private var songList: UITableView
-	private var trackPlayer: TrackPlayer
 	private var trackPlayerView: TrackPlayerView
 	
 	private struct Constants {
@@ -19,10 +18,10 @@ class HomeScreen: UIViewController {
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
-		// FIXME: use real url
-		let startingURL = NSURL(string: "http://api.soundcloud.com/tracks/209315983")
-		trackPlayer = TrackPlayer(URL: startingURL!)
-		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", avPlayer: trackPlayer)
+		
+		// FIXME: use real track
+		let currentTrack = Track(title: "Test", artist: "Test", soundcloudID: "Test", URL: "http://api.soundcloud.com/tracks/209315983")
+		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", track: currentTrack)
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
