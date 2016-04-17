@@ -6,7 +6,14 @@ class HomeScreen: UIViewController {
 	private var mainView: UIView
 	private var songList: UITableView
 	private var trackPlayerView: TrackPlayerView
-	private let backgroundImageView = UIImageView(image: UIImage(named: "beautifulWaterBackground"))
+	private let backgroundImageView: UIImageView
+	private var songListSwipeLeftGesture = UISwipeGestureRecognizer()
+	
+	var preferredFocusedViewLeavingSongList: UIView?
+	override var preferredFocusedView: UIView? {
+		let preferredView = preferredFocusedViewLeavingSongList
+		return preferredView
+	}
 	
 	private struct Constants {
 		static let headerViewHeight: CGFloat = 60
@@ -20,11 +27,16 @@ class HomeScreen: UIViewController {
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
+		backgroundImageView = UIImageView(image: UIImage(named: "beautifulWaterBackground"))
 		
 		// FIXME: use real track
 		let currentTrack = Track(title: "Test", artist: "Test", soundcloudID: "Test", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!)
 		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", track: currentTrack)
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		preferredFocusedViewLeavingSongList = trackPlayerView.playStopButton
+		songListSwipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeftSongList))
+		songListSwipeLeftGesture.direction = .Left
+		songList.addGestureRecognizer(songListSwipeLeftGesture)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -45,7 +57,6 @@ class HomeScreen: UIViewController {
 		songList.delegate = self
 		songList.dataSource = self
 		songList.backgroundColor = UIColor.clearColor()
-//		songList.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
 		songList.registerClass(SongListItem.self, forCellReuseIdentifier: Constants.cellReuseID)
 		songList.rowHeight = UITableViewAutomaticDimension
 
@@ -64,14 +75,17 @@ class HomeScreen: UIViewController {
 		trackPlayerView.frame = CGRect(x: trackPlayerSpacing, y: view.bounds.maxY - Constants.trackPlayerHeight, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: Constants.trackPlayerHeight)
 	}
 	
+	// MARK: - Actions
+	
+	@objc private func swipedLeftSongList() {
+		preferredFocusedViewLeavingSongList = trackPlayerView.skipButton
+		updateFocusIfNeeded()
+		setNeedsFocusUpdate()
+	}
+	
 }
 
 extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
-	
-	// TODO: figure out how to scroll or if should wait for present
-//	func tableView(tableView: UITableView, canFocusRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//		return false
-//	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		// FIXME: Get this info from Sami's shit
