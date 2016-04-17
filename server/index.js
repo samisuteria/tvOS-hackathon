@@ -40,8 +40,11 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
 	console.log('a device connected');
-	socket.emit('roomlist', rooms);
-	console.log('emitted roomlist');
+	
+	socket.on('refreshList', function(x) {
+		socket.emit('roomlist', rooms);
+		console.log('emitted roomlist');
+	})
 
 	socket.on('joinRoom', function(room) {
 		console.log("Socket wanted to join room: " + room)
