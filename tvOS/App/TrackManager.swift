@@ -81,8 +81,8 @@ class TrackManager: NSObject {
 	
 	class func pauseCurrentTrack() {
 		print("pause pressed")
-		guard (track != nil) else { return }
 		isPlayingTrack = false
+		guard (track != nil) else { return }
 		avPlayer.pause()
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer.currentItem)
 	}
