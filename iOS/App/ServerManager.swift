@@ -8,7 +8,7 @@ protocol ServerManagerRoomListDelegate {
 class ServerManager {
     
     static let sharedManager = ServerManager()
-    let socket = SocketIOClient(socketURL: NSURL(string: "https://cgrektserver.herokuapp.com")!, options: [.Log(true), .ForcePolling(true)])
+    let socket = SocketIOClient(socketURL: NSURL(string: "http://localhost:3000")!, options: [.Log(true), .ForcePolling(true)])
     
     var roomnames = [String]()
     var currentRoom = ""
@@ -30,15 +30,21 @@ class ServerManager {
         socket.emit("addSong", withItems: [track.id, currentRoom])
     }
     
+    func refreshRoomList() {
+        socket.emit("refreshList", withItems: ["hello"])
+    }
+    
     private func addHandlers() {
         
-        socket.on("connection") { (data: [AnyObject], ack: SocketAckEmitter) in
+        socket.on("connect") { (data: [AnyObject], ack: SocketAckEmitter) in
             print("socket connected")
+            self.socket.emit("refreshList", withItems: ["hello"])
         }
         
         socket.on("roomlist") { [unowned self] (data: [AnyObject], ack: SocketAckEmitter) in
             print("roomlist")
             if let data = data as? [[String]] {
+                self.roomnames.removeAll()
                 data[0].forEach({ (room: String) in
                     self.roomnames.append(room)
                 })
@@ -47,7 +53,7 @@ class ServerManager {
         }
         
         socket.onAny { (event: SocketAnyEvent) in
-            print("got something")
+            print("event: \(event)")
         }
     }
     

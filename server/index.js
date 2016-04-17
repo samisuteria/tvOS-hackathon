@@ -40,8 +40,11 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
 	console.log('a device connected');
-	socket.emit('roomlist', rooms);
-	console.log('emitted roomlist');
+	
+	socket.on('refreshList', function(x) {
+		socket.emit('roomlist', rooms);
+		console.log('emitted roomlist');
+	})
 
 	socket.on('joinRoom', function(room) {
 		console.log("Socket wanted to join room: " + room)
@@ -57,7 +60,7 @@ io.on('connection', function(socket) {
 	socket.on('createRoom', function(x) {
 		console.log("tv asking to create room")
 		var randomroom = randomRoomName()
-		rooms.push(randomroom)
+		rooms.unshift(randomroom)
 		socket.join(randomroom)
 		socket.emit('createdRoom', randomroom)
 	})

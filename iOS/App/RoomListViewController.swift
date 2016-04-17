@@ -18,6 +18,7 @@ class RoomListViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         title = "Join a Room"
+        serverManager.refreshRoomList()
     }
     
     override func viewDidDisappear(animated: Bool) {
