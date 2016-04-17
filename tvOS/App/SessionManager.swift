@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class SessionManager: NSObject {
 	
 	static let sharedInstance = SessionManager()
@@ -34,7 +33,8 @@ class SessionManager: NSObject {
 	}
 	
 	class func usersInCurrentSession() -> [User] {
-        return [User(userID: "asdas", name: "asdasd", avatar: UIImage(named: "asdasd")!)]
+		let users = [User(userID: "Temp", name: "Temp", avatar: UIImage())]
+		return users
 	}
 	
 	class func addUserToCurrentSession(userID: String) {
