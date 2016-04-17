@@ -10,8 +10,17 @@ import Foundation
 
 class TrackManager: NSObject {
 	
+	private(set) var currentlyPlayingTrack: Bool
+	private(set) var trackAvailableToPlay: Bool
+	
+	override init() {
+		currentlyPlayingTrack = false
+		trackAvailableToPlay = false
+		super.init()
+	}
+	
 	class func currentTrack() -> Track {
-		let track = Track(title: "Temp", artist: "Temp", soundcloudID: "Temp")
+		let track = Track(title: "Temp", artist: "Temp", soundcloudID: "Temp", URL: NSURL(string: "URL")!)
 		return track
 	}
 	
@@ -40,7 +49,7 @@ class TrackManager: NSObject {
 	}
 	
 	class func trackForUser(userID: String) -> Track {
-		let track = Track(title: "Temp", artist: "Temp", soundcloudID: "Temp")
+		let track = Track(title: "Temp", artist: "Temp", soundcloudID: "Temp", URL: NSURL(string: "URL")!)
 		return track
 	}
 
