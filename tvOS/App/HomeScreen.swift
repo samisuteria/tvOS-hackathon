@@ -7,8 +7,9 @@ class HomeScreen: UIViewController {
 	private var songList: UITableView
 	private var trackPlayerView: TrackPlayerView
 	private let backgroundImageView: UIImageView
-	private let sessionView: UIView
+	private let sessionIDView: UIView
 	private var songListSwipeLeftGesture = UISwipeGestureRecognizer()
+	private var sessionIDLabel = UILabel(frame: CGRect.zero)
 	
 	var preferredFocusedViewLeavingSongList: UIView?
 	override var preferredFocusedView: UIView? {
@@ -27,7 +28,7 @@ class HomeScreen: UIViewController {
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
-		sessionView = UIView(frame: CGRect.zero)
+		sessionIDView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
 		backgroundImageView = UIImageView(image: UIImage(named: "beautifulWaterBackground"))
 		
@@ -49,24 +50,37 @@ class HomeScreen: UIViewController {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "RemoveTrackFromQueue", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "UpdateQueue", object: nil)
 		// FIXME: hardcode until can grab from server
-		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "256733104", URL: NSURL(string: "https://api.soundcloud.com/tracks/256733104/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		let track3 = Track(title: "Track Title 3", artist: "Fake Artist 3", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		let track4 = Track(title: "Track Title 4", artist: "Fake Artist 4", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		TrackManager.addTracksToQueue([track, track2, track3, track4])
-//		TrackManager.addTracksToQueue([track, track2, track, track, track, track, track, track, track, track, track, track, track, track, track, track])
+//		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "256733104", URL: NSURL(string: "https://api.soundcloud.com/tracks/256733104/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+//		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+//		let track3 = Track(title: "Track Title 3", artist: "Fake Artist 3", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+//		let track4 = Track(title: "Track Title 4", artist: "Fake Artist 4", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+//		TrackManager.addTracksToQueue([track, track2, track3, track4])
+////		TrackManager.addTracksToQueue([track, track2, track, track, track, track, track, track, track, track, track, track, track, track, track, track])
 		configureSubviews()
+		sessionIDView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+		sessionIDLabel.textColor = UIColor.whiteColor()
+		sessionIDLabel.textAlignment = .Center
+		sessionIDLabel.font = UIFont(name: "Avenir-Medium", size: 30.0)
+		sessionIDView.addSubview(sessionIDLabel)
+		mainView.addSubview(sessionIDView)
+		
+		ServerManager.sharedManager.delegate = self
 		songList.separatorInset = UIEdgeInsetsZero
 		songList.layoutMargins = UIEdgeInsetsZero
     }
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+		sessionIDLabel.text = ""
 		mainView.frame = CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.mainViewWidthRatio), height: view.bounds.size.height)
 		songList.frame = CGRect(x: mainView.bounds.maxX, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: view.bounds.size.height)
-		backgroundImageView.frame = view.frame
 		
 		let trackPlayerSpacing = floor(mainView.bounds.width * Constants.trackPlayerSpacerWidthRatio)
+		sessionIDView.frame = CGRect(x: trackPlayerSpacing, y: 0, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: 100)
+		sessionIDLabel.frame = CGRect(x: 0, y: 0, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: 100)
+		backgroundImageView.frame = view.frame
+		
+		
 		trackPlayerView.frame = CGRect(x: trackPlayerSpacing, y: view.bounds.maxY - Constants.trackPlayerHeight, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: Constants.trackPlayerHeight)
 	}
 	
@@ -177,4 +191,10 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 //		}
 	}
 
+}
+
+extension HomeScreen: ServerManagerDelegate {
+	func serverManagerAssignedRoom(room: String) {
+		sessionIDLabel.text = room
+	}
 }
