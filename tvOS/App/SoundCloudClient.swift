@@ -70,9 +70,8 @@ extension SoundCloudClient {
     
     func pause() {
         audioStream.pause()
-        
     }
-    
+	
     func addID(soundcloudTrackID: String) {
         
         let url = "https://api.soundcloud.com/tracks/\(soundcloudTrackID)?client_id=\(SoundCloud.clientID)"

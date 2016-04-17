@@ -42,11 +42,13 @@ class TrackManager: NSObject {
 		queue = tempArray
 
 		guard track == nil, let nextTrack = queue.first else {
+			NSNotificationCenter.defaultCenter().postNotificationName("UpdateQueue", object: nil)
 			return
 		}
 		track = nextTrack
 		queue.removeFirst()
 		NSNotificationCenter.defaultCenter().postNotificationName("AddTrackToQueue", object: nil)
+		print("track \(track) added!")
 	}
 	
 	class func addTracksToQueue(newTracks: [Track]) {
