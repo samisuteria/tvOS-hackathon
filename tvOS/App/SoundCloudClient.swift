@@ -43,6 +43,9 @@ extension SoundCloudClient: NPAudioStreamDelegate {
 extension SoundCloudClient {
     
     func addTrack(track: Track) {
+        
+        TrackManager.addTrackToQueue(track)
+        
         if let url = createURL(track.soundcloudID) {
             tracks.append(track)
             if audioStream.urls == nil {
