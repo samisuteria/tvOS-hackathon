@@ -46,7 +46,7 @@ extension SoundCloudClient {
             tracks.append(track)
             audioStream.urls.append(url)
         } else {
-            print("error track to the list: \(track)")
+            print("error adding track to the list: \(track)")
         }
     }
     

@@ -5,7 +5,6 @@ class HomeScreen: UIViewController {
 	
 	private var mainView: UIView
 	private var songList: UITableView
-	private var trackPlayer: TrackPlayer
 	private var trackPlayerView: TrackPlayerView
 	
 	private struct Constants {
@@ -19,10 +18,10 @@ class HomeScreen: UIViewController {
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
-		// FIXME: use real url
-		let startingURL = NSURL(string: "http://api.soundcloud.com/tracks/209315983")
-		trackPlayer = TrackPlayer(URL: startingURL!)
-		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", avPlayer: trackPlayer)
+		
+		// FIXME: use real track
+		let currentTrack = Track(title: "Test", artist: "Test", soundcloudID: "Test", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!)
+		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", track: currentTrack)
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
@@ -61,6 +60,11 @@ class HomeScreen: UIViewController {
 }
 
 extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
+	
+	// TODO: figure out how to scroll or if should wait for present
+	func tableView(tableView: UITableView, canFocusRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return false
+	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		// FIXME: Get this info from Sami's shit
