@@ -6,8 +6,10 @@
 //  Copyright © 2016 CGRekt. All rights reserved.
 //
 
+import UIKit
+
 struct User {
 	let userID: String
 	let name: String
-	let emoji: String
+	let avatar: UIImage
 }
