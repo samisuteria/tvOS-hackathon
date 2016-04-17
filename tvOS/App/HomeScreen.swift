@@ -49,7 +49,10 @@ class HomeScreen: UIViewController {
 		// FIXME: hardcode until can grab from server
 		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "256733104", URL: NSURL(string: "https://api.soundcloud.com/tracks/256733104/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
 		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		TrackManager.addTracksToQueue([track, track2, track, track, track, track, track, track, track, track, track, track, track, track, track, track])
+		let track3 = Track(title: "Track Title 3", artist: "Fake Artist 3", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+		let track4 = Track(title: "Track Title 4", artist: "Fake Artist 4", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+		TrackManager.addTracksToQueue([track, track2, track3, track4])
+//		TrackManager.addTracksToQueue([track, track2, track, track, track, track, track, track, track, track, track, track, track, track, track, track])
 		configureSubviews()
 		songList.separatorInset = UIEdgeInsetsZero
 		songList.layoutMargins = UIEdgeInsetsZero
@@ -166,6 +169,10 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Selected row at index path \(indexPath)")
+		//FIXME: SAMI
+//		if let trackToRemove = TrackManager.currentQueue()[indexPath.row] {
+//			TrackManager.removeTrackFromQueue(trackToRemove)
+//		}
 	}
 
 }
