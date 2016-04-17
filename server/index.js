@@ -48,11 +48,10 @@ io.on('connection', function(socket) {
 		socket.join(room)
 	})
 
-	socket.on('addSong', function(song) {
+	socket.on('addSong', function(song, currentRoom) {
 		console.log("Socket added song: " + song)
-		for(var key in socket.rooms.keys) {
-			io.to(key).emit('addToQueue', song)
-		}
+		console.log("emitting to " + currentRoom)
+		io.to(currentRoom).emit('addToQueue', song)
 	})
 
 	socket.on('createRoom', function(x) {
@@ -64,7 +63,6 @@ io.on('connection', function(socket) {
 	})
 
 })
-
 
 http.listen(3000, function() {
 	console.log('listening on 3000');
