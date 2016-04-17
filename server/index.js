@@ -42,7 +42,15 @@ io.on('connection', function(socket) {
 	console.log('a device connected');
 	socket.emit('roomlist', rooms);
 	console.log('emitted roomlist');
+
+	socket.on('joinRoom', function(room) {
+		console.log("Socket wanted to join room: " + room)
+		socket.join(room)
+	})
+
 })
+
+
 
 http.listen(3000, function() {
 	console.log('listening on 3000');
