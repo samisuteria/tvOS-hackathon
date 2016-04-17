@@ -8,7 +8,7 @@ protocol ServerManagerDelegate {
 class ServerManager {
     
     static let sharedManager = ServerManager()
-    let socket = SocketIOClient(socketURL: NSURL(string: "http://localhost:3000")!, options: [.Log(true), .ForcePolling(true)])
+    let socket = SocketIOClient(socketURL: NSURL(string: "http://192.168.1.142:3000")!, options: [.Log(false), .ForcePolling(true)])
     
     var delegate: ServerManagerDelegate?
     var currentRoom = ""
