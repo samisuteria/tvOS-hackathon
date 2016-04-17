@@ -3,6 +3,7 @@ import SocketIOClientSwift
 
 protocol ServerManagerDelegate {
     func serverManagerAssignedRoom(room: String)
+    func serverManagerGotSongIDToQueue(songID: String)
 }
 
 class ServerManager {
@@ -33,8 +34,15 @@ class ServerManager {
             }
         }
         
+        socket.on("addToQueue") { (data: [AnyObject], ack: SocketAckEmitter) in
+            if let data = data as? [String] where data.count == 1 {
+                print(data[0])
+                self.delegate?.serverManagerGotSongIDToQueue(data[0])
+            }
+        }
+        
         socket.onAny { (event: SocketAnyEvent) in
-            print("event: \(event)")
+            //print("event: \(event)")
         }
     }
 }
