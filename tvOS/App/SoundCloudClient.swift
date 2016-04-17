@@ -45,7 +45,11 @@ extension SoundCloudClient {
     func addTrack(track: Track) {
         if let url = createURL(track.soundcloudID) {
             tracks.append(track)
-            audioStream.urls.append(url)
+            if audioStream.urls == nil {
+                audioStream.urls = [url]
+            } else {
+                audioStream.urls.append(url)
+            }
         } else {
             print("error adding track to the list: \(track)")
         }
