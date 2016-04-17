@@ -70,5 +70,8 @@ extension SoundCloudSearchViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         ServerManager.sharedManager.addSong(tracks[indexPath.row])
+        let alert = UIAlertController(title: "Song Added", message: "Yay you added \(tracks[indexPath.row].title)", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
