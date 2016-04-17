@@ -48,18 +48,24 @@ io.on('connection', function(socket) {
 		socket.join(room)
 	})
 
-	socket.on('addSong', function(song) {
+	socket.on('addSong', function(song, currentRoom) {
 		console.log("Socket added song: " + song)
-		for(var key in socket.rooms.keys) {
-			io.to(key).emit('addToQueue', song)
-		}
+		console.log("emitting to " + currentRoom)
+		io.to(currentRoom).emit('addToQueue', song)
+	})
+
+	socket.on('createRoom', function(x) {
+		console.log("tv asking to create room")
+		var randomroom = randomRoomName()
+		rooms.push(randomroom)
+		socket.join(randomroom)
+		socket.emit('createdRoom', randomroom)
 	})
 
 })
 
-
-http.listen(3000, function() {
-	console.log('listening on 3000');
+http.listen((process.env.PORT || 3000), function() {
+	console.log('listening on ' + app.get('port'));
 })
 
 
