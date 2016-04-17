@@ -7,6 +7,4 @@ struct SoundCloudTrackModel {
     let tags: String
     let title: String
     let username: String
-    
-    
 }
