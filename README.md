@@ -60,3 +60,6 @@ Sample SoundCloud API Response /tracks/
 	"attachments_uri":"https://api.soundcloud.com/tracks/259483294/attachments"
 	}
 ```
+
+How to push up a subtree to heroku: 
+`git subtree push --prefix server heroku master`
