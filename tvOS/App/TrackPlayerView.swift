@@ -22,6 +22,9 @@ class TrackPlayerView: UIView {
 	private let playImage = UIImage(named: "play")
 	private let pauseImage = UIImage(named: "pause")
 	private let forwardImage = UIImage(named: "forward")
+    private let playImageWhite = UIImage(named: "play-white")
+    private let pauseImageWhite = UIImage(named: "pause-white")
+    private let forwardImageWhite = UIImage(named: "forward-white")
 	private let visualEffectView: UIVisualEffectView
 	
 	private var songLabel: UILabel
@@ -47,11 +50,13 @@ class TrackPlayerView: UIView {
 		
 		let focusedColor = UIColor.whiteColor()
 		playStopButton.setBackgroundImage(playImage, forState: .Normal)
+        playStopButton.setBackgroundImage(playImageWhite, forState: .Focused)
 		playStopButton.tintColor = focusedColor
 		playStopButton.adjustsImageWhenHighlighted = false
 		playStopButton.addTarget(self, action: #selector(playStopButtonPressed(_:)), forControlEvents: .PrimaryActionTriggered)
 		
 		skipButton.setBackgroundImage(forwardImage, forState: .Normal)
+        skipButton.setBackgroundImage(forwardImageWhite, forState: .Focused)
 		skipButton.tintColor = focusedColor
 		skipButton.adjustsImageWhenHighlighted = false
 		skipButton.addTarget(self, action: #selector(trackPlayerViewSkipTrack(_:)), forControlEvents: .PrimaryActionTriggered)
@@ -139,7 +144,7 @@ class TrackPlayerView: UIView {
 		guard TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
 		// FIXME: SAMI
-		playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
+		playStopButton.setBackgroundImage(pauseImageWhite, forState: .Focused)
 	}
 	
 	private func trackPlayerViewPauseTrack(sender: AnyObject) {
@@ -147,7 +152,7 @@ class TrackPlayerView: UIView {
 		guard !TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(playImage, forState: .Normal)
 		// FIXME: SAMI
-		playStopButton.setBackgroundImage(playImage, forState: .Focused)
+		playStopButton.setBackgroundImage(playImageWhite, forState: .Focused)
 	}
 	
 	@objc private func trackPlayerViewSkipTrack(sender: AnyObject) {
@@ -162,11 +167,11 @@ class TrackPlayerView: UIView {
 		if TrackManager.isPlayingTrack {
 			playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
 			// FIXME: SAMI
-			playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
+			playStopButton.setBackgroundImage(pauseImageWhite, forState: .Focused)
 		} else {
 			playStopButton.setBackgroundImage(playImage, forState: .Normal)
 			// FIXME: SAMI
-			playStopButton.setBackgroundImage(playImage, forState: .Focused)
+			playStopButton.setBackgroundImage(playImageWhite, forState: .Focused)
 		}
 	}
 
