@@ -7,6 +7,7 @@ class HomeScreen: UIViewController {
 	private var songList: UITableView
 	private var trackPlayerView: TrackPlayerView
 	private let backgroundImageView: UIImageView
+	private let sessionView: UIView
 	private var songListSwipeLeftGesture = UISwipeGestureRecognizer()
 	
 	var preferredFocusedViewLeavingSongList: UIView?
@@ -26,6 +27,7 @@ class HomeScreen: UIViewController {
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		mainView = UIView(frame: CGRect.zero)
+		sessionView = UIView(frame: CGRect.zero)
 		songList = UITableView(frame: CGRect.zero)
 		backgroundImageView = UIImageView(image: UIImage(named: "beautifulWaterBackground"))
 		
