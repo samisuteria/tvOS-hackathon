@@ -16,11 +16,19 @@ class RoomListViewController: UIViewController {
         serverManager.roomlistDelegate = self
     }
     
+    override func viewDidAppear(animated: Bool) {
+        title = "Join a Room"
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        title = ""
+    }
+    
     //MARK: - Setup
     
     private func setupViews() {
         
-        title = "Join a Room"
+        
         view.backgroundColor = .grayColor()
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -32,11 +40,7 @@ class RoomListViewController: UIViewController {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(view)
         }
-        
-        
     }
-    
-    
 }
 
 extension RoomListViewController: ServerManagerRoomListDelegate {
@@ -64,5 +68,6 @@ extension RoomListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         serverManager.joinRoom(serverManager.roomnames[indexPath.row])
+        self.navigationController?.pushViewController(SoundCloudSearchViewController(), animated: true)
     }
 }
