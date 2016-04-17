@@ -14,9 +14,9 @@ class TrackPlayerView: UIView {
 	
 	struct Constants {
 		static let padding: CGFloat = 15
-		static let controlButtonsPadding: CGFloat = 25
+		static let controlButtonsPadding: CGFloat = 80
 		static let containerHeight: CGFloat = 150
-		static let controlButtonSize = CGSize(width: 70 ,height: 70)
+		static let controlButtonSize = CGSize(width: 60 ,height: 60)
 	}
 	
 	private let playImage = UIImage(named: "play")
@@ -34,26 +34,33 @@ class TrackPlayerView: UIView {
 		visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
 		avPlayerContainer = UIView(frame: CGRect.zero)
 		songLabel = UILabel(frame: CGRect.zero)
-		playStopButton = UIButton(type: .System)
-		skipButton = UIButton(type: .System)
+		playStopButton = UIButton(type: .Custom)
+		skipButton = UIButton(type: .Custom)
 		super.init(frame: frame)
 		
 		backgroundColor = UIColor.clearColor()
 		addSubview(visualEffectView)
 		
 		avPlayerContainer.backgroundColor = UIColor.clearColor()
+		playStopButton.backgroundColor = UIColor.clearColor()
+		skipButton.backgroundColor = UIColor.clearColor()
 		
+		let focusedColor = UIColor.whiteColor()
 		playStopButton.setBackgroundImage(playImage, forState: .Normal)
+		playStopButton.tintColor = focusedColor
 		playStopButton.adjustsImageWhenHighlighted = false
 		playStopButton.addTarget(self, action: #selector(playStopButtonPressed(_:)), forControlEvents: .PrimaryActionTriggered)
 		
 		skipButton.setBackgroundImage(forwardImage, forState: .Normal)
+		skipButton.tintColor = focusedColor
 		skipButton.adjustsImageWhenHighlighted = false
 		skipButton.addTarget(self, action: #selector(trackPlayerViewSkipTrack(_:)), forControlEvents: .PrimaryActionTriggered)
 		
-		songLabel.font = UIFont.systemFontOfSize(30.0)
+		songLabel.font = UIFont(name: "Avenir-Heavy", size: 30.0)
 		songLabel.numberOfLines = 1
 		songLabel.textAlignment = .Center
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateTrackLabel), name: "AddTrackToQueue", object: nil)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -63,8 +70,9 @@ class TrackPlayerView: UIView {
 	private func configureSubviews() {
 		let maxWidth = bounds.width - 2 * Constants.padding
 		let songLabelSize = songLabel.sizeThatFits(CGSize(width: maxWidth, height: CGFloat.max))
-		
 		songLabel.frame.size = songLabelSize
+		
+		skipButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		avPlayerContainer.addSubview(playStopButton)
 		avPlayerContainer.addSubview(skipButton)
@@ -78,22 +86,40 @@ class TrackPlayerView: UIView {
 		visualEffectView.frame = bounds
 		
 		songLabel.frame = CGRect(x: Constants.padding, y: Constants.padding, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
-		//songLabel.frame = CGRect(x: Constants.padding, y: songLabelYPadding + avPlayerContainer.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
 		avPlayerContainer.frame = CGRect(x: Constants.padding, y: Constants.padding + songLabel.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: Constants.containerHeight)
 		
-		
 		let centerX = floor(bounds.width / 2)
-		playStopButton.frame = CGRectMake(centerX - Constants.controlButtonsPadding - Constants.controlButtonSize.width, floor((avPlayerContainer.bounds.height - Constants.controlButtonSize.height) / 2) , Constants.controlButtonSize.width, Constants.controlButtonSize.height)
-		skipButton.frame = CGRectMake(centerX + Constants.controlButtonsPadding, floor((avPlayerContainer.bounds.height - Constants.controlButtonSize.height) / 2) , Constants.controlButtonSize.width, Constants.controlButtonSize.height)
-		
-		
+		playStopButton.frame = CGRectMake(centerX - floor(Constants.controlButtonSize.width / 2), floor((avPlayerContainer.bounds.height - Constants.controlButtonSize.height) / 2) , Constants.controlButtonSize.width, Constants.controlButtonSize.height)
+		skipButton.frame = CGRectMake(playStopButton.frame.maxX + Constants.controlButtonsPadding, floor((avPlayerContainer.bounds.height - Constants.controlButtonSize.height) / 2) , Constants.controlButtonSize.width, Constants.controlButtonSize.height)
 	}
 	
-	private func updateTrackLabel() {
+	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+		super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
+		
+		let tintedPlayStop = playStopButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
+		playStopButton.setBackgroundImage(tintedPlayStop, forState: .Focused)
+
+		let tintedSkip = skipButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
+		skipButton.setBackgroundImage(tintedSkip, forState: .Focused)
+		
+		if playStopButton == context.previouslyFocusedView {
+			playStopButton.transform = CGAffineTransformMakeScale(1, 1)
+		} else if playStopButton ==  context.nextFocusedView {
+			playStopButton.transform = CGAffineTransformMakeScale(1.3, 1.3)
+		}
+		
+		if skipButton ==  context.previouslyFocusedView {
+			skipButton.transform = CGAffineTransformMakeScale(1, 1)
+		} else if skipButton ==  context.nextFocusedView {
+			skipButton.transform = CGAffineTransformMakeScale(1.3, 1.3)
+		}
+	}
+	
+	@objc private func updateTrackLabel() {
 		if let currentTrack = TrackManager.currentTrack() {
-			songLabel.text = "Now Playing: \(currentTrack.artist) - \(currentTrack.title)"
+			songLabel.text = "\(currentTrack.artist) - \(currentTrack.title)"
 		} else {
-			songLabel.text = "Now Playing: ...track queue is empty"
+			songLabel.text = "Waiting For Track. Queue is empty."
 		}
 	}
 	
@@ -107,8 +133,7 @@ class TrackPlayerView: UIView {
 			trackPlayerViewPlayTrack(sender)
 		}
 	}
-	
-	// TODO: update the focused images
+
 	private func trackPlayerViewPlayTrack(sender: AnyObject) {
 		TrackManager.playCurrentTrack()
 		guard TrackManager.isPlayingTrack else { return }
@@ -126,6 +151,12 @@ class TrackPlayerView: UIView {
 	@objc private func trackPlayerViewSkipTrack(sender: AnyObject) {
 		TrackManager.skipCurrentTrack()
 		updateTrackLabel()
+		updateControlButtons()
+		setNeedsFocusUpdate()
+		updateFocusIfNeeded()
+	}
+	
+	@objc private func updateControlButtons() {
 		if TrackManager.isPlayingTrack {
 			playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
 			playStopButton.setBackgroundImage(pauseImage, forState: .Focused)

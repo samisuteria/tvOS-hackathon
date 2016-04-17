@@ -42,11 +42,13 @@ class TrackManager: NSObject {
 		queue = tempArray
 
 		guard track == nil, let nextTrack = queue.first else {
+			NSNotificationCenter.defaultCenter().postNotificationName("UpdateQueue", object: nil)
 			return
 		}
 		track = nextTrack
 		queue.removeFirst()
 		NSNotificationCenter.defaultCenter().postNotificationName("AddTrackToQueue", object: nil)
+		print("track \(track) added!")
 	}
 	
 	class func addTracksToQueue(newTracks: [Track]) {
@@ -82,7 +84,10 @@ class TrackManager: NSObject {
 	class func pauseCurrentTrack() {
 		print("pause pressed")
 		isPlayingTrack = false
-		guard (track != nil) else { return }
+		guard (track != nil) else {
+			NSNotificationCenter.defaultCenter().postNotificationName("UpdateQueue", object: nil)
+			return
+		}
 		avPlayer.pause()
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer.currentItem)
 	}
@@ -92,6 +97,7 @@ class TrackManager: NSObject {
 		pauseCurrentTrack()
 		guard let nextTrack = queue.first else {
 			print("queue is empty")
+			NSNotificationCenter.defaultCenter().postNotificationName("UpdateQueue", object: nil)
 			return
 		}
 		track = nextTrack

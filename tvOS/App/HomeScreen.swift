@@ -16,7 +16,7 @@ class HomeScreen: UIViewController {
 	}
 	
 	private struct Constants {
-		static let headerViewHeight: CGFloat = 60
+		static let headerViewHeight: CGFloat = 90
 		static let trackPlayerHeight: CGFloat = 200
 		static let trackPlayerSpacerWidthRatio: CGFloat = 1 / 10
 		static let mainViewWidthRatio: CGFloat = 3 / 4
@@ -45,11 +45,14 @@ class HomeScreen: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "AddTrackToQueue", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "RemoveTrackFromQueue", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "UpdateQueue", object: nil)
 		// FIXME: hardcode until can grab from server
 		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "256733104", URL: NSURL(string: "https://api.soundcloud.com/tracks/256733104/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
 		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
-		TrackManager.addTracksToQueue([track, track2])
+		TrackManager.addTracksToQueue([track, track2, track, track, track, track, track, track, track, track, track, track, track, track, track, track])
 		configureSubviews()
+		songList.separatorInset = UIEdgeInsetsZero
+		songList.layoutMargins = UIEdgeInsetsZero
     }
 	
 	override func viewDidLayoutSubviews() {
@@ -72,7 +75,6 @@ class HomeScreen: UIViewController {
 		songList.dataSource = self
 		songList.backgroundColor = UIColor.clearColor()
 		songList.registerClass(SongListItem.self, forCellReuseIdentifier: Constants.cellReuseID)
-		songList.rowHeight = UITableViewAutomaticDimension
 
 		mainView.addSubview(trackPlayerView)
 		view.addSubview(mainView)
@@ -87,8 +89,8 @@ class HomeScreen: UIViewController {
 	
 	@objc private func swipedLeftSongList() {
 		preferredFocusedViewLeavingSongList = trackPlayerView.skipButton
-		updateFocusIfNeeded()
 		setNeedsFocusUpdate()
+		updateFocusIfNeeded()
 	}
 	
 }
@@ -108,12 +110,20 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		if TrackManager.currentQueue().count == 0 {
+			return 80
+		}
 		return 0
 	}
 	
 	func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = UIView(frame: CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: 1))
-		footerView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+		let footerView = UIView(frame: CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: 80))
+		let label = UILabel(frame: footerView.frame)
+		label.text = "No Tracks Queued"
+		label.font = UIFont(name: "Avenir-Medium", size: 20.0)
+		label.textAlignment = .Center
+		footerView.addSubview(label)
+		footerView.backgroundColor = UIColor.whiteColor()
 		return footerView
 	}
 	
@@ -124,10 +134,10 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 			let headerLabelFrame = CGRect(x: 5, y: 5, width: headerFrame.size.width - 10, height: headerFrame.size.height - 10)
 			let headerLabel = UILabel(frame: headerLabelFrame)
 			
-			headerLabel.text = "Up Next".uppercaseString
+			headerLabel.text = "On Deck".uppercaseString
 			headerLabel.textAlignment = .Center
 			headerLabel.adjustsFontSizeToFitWidth = true
-			headerLabel.font = UIFont.systemFontOfSize(28.0)
+			headerLabel.font = UIFont(name: "Avenir-Heavy", size: 28.0)
 			headerLabel.textColor = UIColor.whiteColor()
 			headerView.addSubview(headerLabel)
 			headerView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
@@ -149,11 +159,28 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 		if let artist = TrackManager.currentQueue()[indexPath.row]?.artist {
 			cell.songArtist = artist
 		}
+		cell.layoutMargins = UIEdgeInsetsZero
+		cell.preservesSuperviewLayoutMargins = false
 		return cell
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Selected row at index path \(indexPath)")
 	}
+	
+//	func tableView(tableView: UITableView, didUpdateFocusInContext context: UITableViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+//		
+//		if let previousIndexPath = context.previouslyFocusedIndexPath {
+//			let cell = tableView.cellForRowAtIndexPath(previousIndexPath) as! SongListItem
+//			cell.updatePreviousFocusItem()
+//			cell.textLabel?.textColor = UIColor.whiteColor()
+//		}
+//		
+//		if let nextIndexPath = context.nextFocusedIndexPath {
+//			let cell = tableView.cellForRowAtIndexPath(nextIndexPath) as! SongListItem
+//			cell.updateNextFocusItem()
+//			cell.textLabel?.textColor = UIColor.blackColor()
+//		}
+//	}
 	
 }

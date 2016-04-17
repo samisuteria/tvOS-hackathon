@@ -24,7 +24,8 @@ class SongListItem: UITableViewCell {
 		avatarIcon = UIImageView(frame: CGRect.zero)
 		songLabel = UILabel(frame: CGRect.zero)
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		backgroundColor = UIColor.whiteColor()
+		backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+		songLabel.textColor = UIColor.whiteColor()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -36,15 +37,31 @@ class SongListItem: UITableViewCell {
 		configureSubviews()
 	}
 	
+	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+		super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
+		if self == context.previouslyFocusedView {
+			updatePreviousFocusItem()
+		} else if self ==  context.nextFocusedView {
+			updateNextFocusItem()
+		}
+	}
+	
+	func updatePreviousFocusItem() {
+		songLabel.textColor = UIColor.whiteColor()
+	}
+	
+	func updateNextFocusItem() {
+		songLabel.textColor = UIColor.blackColor()
+	}
+	
 	private func configureSubviews() {
 		songLabel.text = "\(songName) - \(songArtist)"
-		// TODO: Add custom font
-		songLabel.font = UIFont.systemFontOfSize(20.0)
+		songLabel.font = UIFont(name: "Avenir-Medium", size: 20.0)
 		songLabel.textAlignment = .Center
 		songLabel.numberOfLines = 1
 		
 		// TODO: Get custom image
-		avatarIcon.backgroundColor = UIColor.redColor()
+		avatarIcon = UIImageView(image: UIImage(named: "ninjaAvatar"))
 		
 		let songLabelMaxWidth = bounds.width - Constants.avatarIconSize.width - (3 * Constants.padding)
 		let maxSize = CGSize(width: songLabelMaxWidth, height: CGFloat.max)
