@@ -5,4 +5,5 @@ struct Track {
     let artist: String
     let soundcloudID: String
 	let URL: NSURL
+	let userID: String
 }

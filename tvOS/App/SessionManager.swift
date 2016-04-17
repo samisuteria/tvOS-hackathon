@@ -10,10 +10,11 @@ import Foundation
 
 class SessionManager: NSObject {
 	
+	static let sharedInstance = SessionManager()
 	private(set) var synchingSession: Bool
 	private(set) var sessionUsers: NSSet
 	
-	override init() {
+	override private init() {
 		synchingSession = false
 		sessionUsers = []
 		super.init()
@@ -32,7 +33,7 @@ class SessionManager: NSObject {
 	}
 	
 	class func usersInCurrentSession() -> [User] {
-		let users = [User(id: "Temp", name: "Temp", emoji: "Temp")]
+		let users = [User(userID: "Temp", name: "Temp", emoji: "Temp")]
 		return users
 	}
 	

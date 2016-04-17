@@ -29,9 +29,7 @@ class HomeScreen: UIViewController {
 		songList = UITableView(frame: CGRect.zero)
 		backgroundImageView = UIImageView(image: UIImage(named: "beautifulWaterBackground"))
 		
-		// FIXME: use real track
-		let currentTrack = Track(title: "Test", artist: "Test", soundcloudID: "Test", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!)
-		trackPlayerView = TrackPlayerView(frame: CGRect.zero, songName: "Test Song Name", track: currentTrack)
+		trackPlayerView = TrackPlayerView(frame: CGRect.zero)
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		preferredFocusedViewLeavingSongList = trackPlayerView.playStopButton
 		songListSwipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeftSongList))
@@ -45,8 +43,24 @@ class HomeScreen: UIViewController {
 	
     override func viewDidLoad() {
         view.backgroundColor = UIColor.whiteColor()
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "AddTrackToQueue", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "RemoveTrackFromQueue", object: nil)
+		// FIXME: hardcode until can grab from server
+		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
+		TrackManager.addTracksToQueue([track, track2])
 		configureSubviews()
     }
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		mainView.frame = CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.mainViewWidthRatio), height: view.bounds.size.height)
+		songList.frame = CGRect(x: mainView.bounds.maxX, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: view.bounds.size.height)
+		backgroundImageView.frame = view.frame
+		
+		let trackPlayerSpacing = floor(mainView.bounds.width * Constants.trackPlayerSpacerWidthRatio)
+		trackPlayerView.frame = CGRect(x: trackPlayerSpacing, y: view.bounds.maxY - Constants.trackPlayerHeight, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: Constants.trackPlayerHeight)
+	}
 	
 	private func configureSubviews() {
 		backgroundImageView.contentMode = .ScaleAspectFill
@@ -65,14 +79,8 @@ class HomeScreen: UIViewController {
 		view.addSubview(songList)
 	}
 	
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		mainView.frame = CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.mainViewWidthRatio), height: view.bounds.size.height)
-		songList.frame = CGRect(x: mainView.bounds.maxX, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: view.bounds.size.height)
-		backgroundImageView.frame = view.frame
-	
-		let trackPlayerSpacing = floor(mainView.bounds.width * Constants.trackPlayerSpacerWidthRatio)
-		trackPlayerView.frame = CGRect(x: trackPlayerSpacing, y: view.bounds.maxY - Constants.trackPlayerHeight, width: ceil(mainView.bounds.width - (2 * trackPlayerSpacing)), height: Constants.trackPlayerHeight)
+	@objc private func trackQueueModified() {
+		songList.reloadData()
 	}
 	
 	// MARK: - Actions
@@ -88,8 +96,8 @@ class HomeScreen: UIViewController {
 extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// FIXME: Get this info from Sami's shit
-		return 10
+		let count = TrackManager.currentQueue().count
+		return count
 	}
 	
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -134,7 +142,13 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = songList.dequeueReusableCellWithIdentifier(Constants.cellReuseID, forIndexPath: indexPath)
+		let cell = songList.dequeueReusableCellWithIdentifier(Constants.cellReuseID, forIndexPath: indexPath) as! SongListItem
+		if let title = TrackManager.currentQueue()[indexPath.row]?.title {
+			cell.songName = title
+		}
+		if let artist = TrackManager.currentQueue()[indexPath.row]?.artist {
+			cell.songArtist = artist
+		}
 		return cell
 	}
 	

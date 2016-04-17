@@ -7,7 +7,7 @@
 //
 
 struct User {
-	let id: String
+	let userID: String
 	let name: String
 	let emoji: String
 }

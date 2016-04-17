@@ -12,11 +12,6 @@ import AVFoundation
 
 class TrackPlayerView: UIView {
 	
-	private let playImage = UIImage(named: "play")
-	private let pauseImage = UIImage(named: "pause")
-	private let forwardImage = UIImage(named: "forward")
-	private let visualEffectView: UIVisualEffectView
-	
 	struct Constants {
 		static let padding: CGFloat = 15
 		static let controlButtonsPadding: CGFloat = 25
@@ -24,23 +19,20 @@ class TrackPlayerView: UIView {
 		static let controlButtonSize = CGSize(width: 70 ,height: 70)
 	}
 	
+	private let playImage = UIImage(named: "play")
+	private let pauseImage = UIImage(named: "pause")
+	private let forwardImage = UIImage(named: "forward")
+	private let visualEffectView: UIVisualEffectView
+	
+	private var songLabel: UILabel
+	private var avPlayerContainer: UIView
 	var playStopButton: UIButton
 	var	skipButton: UIButton
-	private var songLabel: UILabel
-	private var avPlayer: AVPlayer
-	private var avPlayerContainer: UIView
 	
-	// FIXME: temporary bool for stop/play delete after hooking up with track manager
-	private var isPlaying: Bool
-
 	
-	init(frame: CGRect, songName: String, track: Track) {
+	override init(frame: CGRect) {
 		visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-		isPlaying = false // FIXME: DELETE after hooked up with track manager
 		avPlayerContainer = UIView(frame: CGRect.zero)
-		let asset = AVAsset(URL: track.URL)
-		let playerItem = AVPlayerItem(asset: asset)
-		avPlayer = AVPlayer(playerItem: playerItem)
 		songLabel = UILabel(frame: CGRect.zero)
 		playStopButton = UIButton(type: .System)
 		skipButton = UIButton(type: .System)
@@ -62,7 +54,6 @@ class TrackPlayerView: UIView {
 		songLabel.font = UIFont.systemFontOfSize(30.0)
 		songLabel.numberOfLines = 1
 		songLabel.textAlignment = .Center
-		songLabel.text = "Now Playing: \(songName)"
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -83,11 +74,11 @@ class TrackPlayerView: UIView {
 	
 	override func layoutSubviews() {
 		configureSubviews()
+		updateTrackLabel()
 		visualEffectView.frame = bounds
 		
 		songLabel.frame = CGRect(x: Constants.padding, y: Constants.padding, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
 		//songLabel.frame = CGRect(x: Constants.padding, y: songLabelYPadding + avPlayerContainer.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
-		let buttonYPadding: CGFloat = floor(((bounds.height - songLabel.bounds.maxY) - ceil(Constants.controlButtonSize.height)) / 2)
 		avPlayerContainer.frame = CGRect(x: Constants.padding, y: Constants.padding + songLabel.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: Constants.containerHeight)
 		
 		
@@ -98,41 +89,50 @@ class TrackPlayerView: UIView {
 		
 	}
 	
+	private func updateTrackLabel() {
+		if let currentTrack = TrackManager.currentTrack() {
+			songLabel.text = "Now Playing: \(currentTrack.artist) - \(currentTrack.title)"
+		} else {
+			songLabel.text = "Now Playing: ...track queue is empty"
+		}
+	}
+	
 	// MARK: - Actions
 	
 	@objc private func playStopButtonPressed(sender: AnyObject) {
-		
-		// FIXME: once track manager is hooked up, use that bool instead of local
-		if (isPlaying) {
+		updateTrackLabel()
+		if (TrackManager.isPlayingTrack) {
 			trackPlayerViewPauseTrack(sender)
 		} else {
 			trackPlayerViewPlayTrack(sender)
 		}
-		isPlaying = !isPlaying
 	}
 	
-	// TODO: hook up with track manager
+	// TODO: update the focused images
 	private func trackPlayerViewPlayTrack(sender: AnyObject) {
-		print("play pressed")
+		TrackManager.playCurrentTrack()
+		guard TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
 		playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
-		
-		avPlayer.play()
 	}
 	
 	private func trackPlayerViewPauseTrack(sender: AnyObject) {
-		print("pause pressed")
+		TrackManager.pauseCurrentTrack()
+		guard !TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(playImage, forState: .Normal)
 		playStopButton.setBackgroundImage(playImage, forState: .Focused)
-		avPlayer.pause()
 	}
 	
 	@objc private func trackPlayerViewSkipTrack(sender: AnyObject) {
-		print("pause pressed")
-		// TODO: handle skipping
-		// Once track is finished skipping, play
-		trackPlayerViewPlayTrack(self)
-		isPlaying = true
+		TrackManager.skipCurrentTrack()
+		updateTrackLabel()
+		if TrackManager.isPlayingTrack {
+			playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
+			playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
+		} else {
+			playStopButton.setBackgroundImage(playImage, forState: .Normal)
+			playStopButton.setBackgroundImage(playImage, forState: .Focused)
+		}
 	}
 
 }

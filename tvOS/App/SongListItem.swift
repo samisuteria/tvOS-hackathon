@@ -10,7 +10,8 @@ import UIKit
 
 class SongListItem: UITableViewCell {
 	
-	var songName = String()
+	var songName = "Untitled Song"
+	var songArtist = "Unknown Artist"
 	private var avatarIcon: UIImageView
 	private var songLabel: UILabel
 	
@@ -22,8 +23,6 @@ class SongListItem: UITableViewCell {
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		avatarIcon = UIImageView(frame: CGRect.zero)
 		songLabel = UILabel(frame: CGRect.zero)
-		// TODO: dynamic names
-		songName = "CGRekt song"
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		backgroundColor = UIColor.whiteColor()
 	}
@@ -38,7 +37,7 @@ class SongListItem: UITableViewCell {
 	}
 	
 	private func configureSubviews() {
-		songLabel.text = songName
+		songLabel.text = "\(songName) - \(songArtist)"
 		// TODO: Add custom font
 		songLabel.font = UIFont.systemFontOfSize(20.0)
 		songLabel.textAlignment = .Center
