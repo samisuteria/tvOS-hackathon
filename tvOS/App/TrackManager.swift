@@ -42,7 +42,6 @@ class TrackManager: NSObject {
 		queue = tempArray
 
 		guard track == nil, let nextTrack = queue.first else {
-			print("queue is empty")
 			return
 		}
 		track = nextTrack
@@ -72,10 +71,12 @@ class TrackManager: NSObject {
 		guard let currentTrack = track else { return }
 		let asset = AVAsset(URL: currentTrack.URL)
 		let playerItem = AVPlayerItem(asset: asset)
+//		print(asset.duration)
 		avPlayer = AVPlayer(playerItem: playerItem)
 		isPlayingTrack = true
 		avPlayer.play()
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer)
+		//AVPlayerItemFailedToPlayToEndTimeNotification
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer.currentItem)
 	}
 	
 	class func pauseCurrentTrack() {
@@ -83,7 +84,7 @@ class TrackManager: NSObject {
 		guard (track != nil) else { return }
 		isPlayingTrack = false
 		avPlayer.pause()
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer.currentItem)
 	}
 	
 	class func skipCurrentTrack() {
