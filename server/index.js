@@ -55,6 +55,13 @@ io.on('connection', function(socket) {
 		}
 	})
 
+	socket.on('createRoom', function(x) {
+		console.log("tv asking to create room")
+		var randomroom = randomRoomName()
+		socket.join(randomroom)
+		socket.emit('createdRoom', randomroom)
+	})
+
 })
 
 
