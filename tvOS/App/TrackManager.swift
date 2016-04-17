@@ -58,10 +58,11 @@ class TrackManager: NSObject {
 	}
 	
 	class func removeTrackFromQueue(trackToRemove: Track) {
-		var tempArray = queue
+        var tempArray = queue
 		for (index, track) in tempArray.enumerate() {
 			if (track?.soundcloudID == trackToRemove.soundcloudID) {
 				tempArray.removeAtIndex(index)
+                break
 			}
 		}
 		queue = tempArray

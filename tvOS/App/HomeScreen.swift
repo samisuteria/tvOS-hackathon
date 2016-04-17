@@ -168,11 +168,9 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		print("Selected row at index path \(indexPath)")
-		//FIXME: SAMI
-//		if let trackToRemove = TrackManager.currentQueue()[indexPath.row] {
-//			TrackManager.removeTrackFromQueue(trackToRemove)
-//		}
+        if let trackToRemove = TrackManager.currentQueue()[indexPath.row] {
+            TrackManager.removeTrackFromQueue(trackToRemove)
+        }
 	}
 
 }
