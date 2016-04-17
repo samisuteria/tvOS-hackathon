@@ -9,7 +9,7 @@ protocol ServerManagerDelegate {
 class ServerManager {
     
     static let sharedManager = ServerManager()
-    let socket = SocketIOClient(socketURL: NSURL(string: "http://192.168.1.142:3000")!, options: [.Log(false), .ForcePolling(true)])
+    let socket = SocketIOClient(socketURL: NSURL(string: "https://cgrektserver.herokuapp.com")!, options: [.Log(false), .ForcePolling(true)])
     
     var delegate: ServerManagerDelegate?
     var currentRoom = ""
