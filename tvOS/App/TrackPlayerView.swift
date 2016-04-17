@@ -96,11 +96,11 @@ class TrackPlayerView: UIView {
 	override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
 		super.didUpdateFocusInContext(context, withAnimationCoordinator: coordinator)
 		
-		let tintedPlayStop = playStopButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
-		playStopButton.setBackgroundImage(tintedPlayStop, forState: .Focused)
-
-		let tintedSkip = skipButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
-		skipButton.setBackgroundImage(tintedSkip, forState: .Focused)
+//		let tintedPlayStop = playStopButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
+//		playStopButton.setBackgroundImage(tintedPlayStop, forState: .Focused)
+//
+//		let tintedSkip = skipButton.currentBackgroundImage?.imageWithRenderingMode(.AlwaysTemplate)
+//		skipButton.setBackgroundImage(tintedSkip, forState: .Focused)
 		
 		if playStopButton == context.previouslyFocusedView {
 			playStopButton.transform = CGAffineTransformMakeScale(1, 1)
@@ -138,6 +138,7 @@ class TrackPlayerView: UIView {
 		TrackManager.playCurrentTrack()
 		guard TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
+		// FIXME: SAMI
 		playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
 	}
 	
@@ -145,6 +146,7 @@ class TrackPlayerView: UIView {
 		TrackManager.pauseCurrentTrack()
 		guard !TrackManager.isPlayingTrack else { return }
 		playStopButton.setBackgroundImage(playImage, forState: .Normal)
+		// FIXME: SAMI
 		playStopButton.setBackgroundImage(playImage, forState: .Focused)
 	}
 	
@@ -159,9 +161,11 @@ class TrackPlayerView: UIView {
 	@objc private func updateControlButtons() {
 		if TrackManager.isPlayingTrack {
 			playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
+			// FIXME: SAMI
 			playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
 		} else {
 			playStopButton.setBackgroundImage(playImage, forState: .Normal)
+			// FIXME: SAMI
 			playStopButton.setBackgroundImage(playImage, forState: .Focused)
 		}
 	}

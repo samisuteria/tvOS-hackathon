@@ -167,20 +167,5 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Selected row at index path \(indexPath)")
 	}
-	
-//	func tableView(tableView: UITableView, didUpdateFocusInContext context: UITableViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-//		
-//		if let previousIndexPath = context.previouslyFocusedIndexPath {
-//			let cell = tableView.cellForRowAtIndexPath(previousIndexPath) as! SongListItem
-//			cell.updatePreviousFocusItem()
-//			cell.textLabel?.textColor = UIColor.whiteColor()
-//		}
-//		
-//		if let nextIndexPath = context.nextFocusedIndexPath {
-//			let cell = tableView.cellForRowAtIndexPath(nextIndexPath) as! SongListItem
-//			cell.updateNextFocusItem()
-//			cell.textLabel?.textColor = UIColor.blackColor()
-//		}
-//	}
-	
+
 }
