@@ -19,6 +19,9 @@ class SoundCloudSearchViewController: UIViewController {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        
+        searchController.searchBar.text = "Mashups"
+        updateSearchResultsForSearchController(searchController)
     }
     
     private func setupViews() {
