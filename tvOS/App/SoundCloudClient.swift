@@ -1,6 +1,7 @@
 import Foundation
 import NPAudioStream
 import Parse
+import Alamofire
 
 class SoundCloudClient: NSObject {
     
@@ -63,6 +64,38 @@ extension SoundCloudClient {
     func pause() {
         audioStream.pause()
         
+    }
+    
+    func addID(soundcloudTrackID: String) {
+        
+        let url = "https://api.soundcloud.com/tracks/\(soundcloudTrackID)?client_id=\(SoundCloud.clientID)"
+        Alamofire.request(.GET, url).response { (request: NSURLRequest?, response: NSHTTPURLResponse?, data: NSData?, error: NSError?) in
+            
+            guard
+                let data = data,
+                let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []),
+                let trackData = json as? [String: AnyObject]
+                else {
+                    print("boo")
+                    return
+            }
+            
+            if
+                let id = trackData["id"] as? Int,
+                let title = trackData["title"] as? String,
+                let user = trackData["user"] as? [String: AnyObject],
+                let username = user["username"] as? String,
+                let streamable = trackData["streamable"] as? Bool where streamable == true
+            {
+                let track = Track(title: title,
+                    artist: username,
+                    soundcloudID: String(id),
+                    URL: self.createURL(String(id))!,
+                    userID: "anon")
+                
+                self.addTrack(track)
+            }
+        }
     }
 }
 

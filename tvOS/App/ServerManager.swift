@@ -38,6 +38,7 @@ class ServerManager {
             if let data = data as? [String] where data.count == 1 {
                 print(data[0])
                 self.delegate?.serverManagerGotSongIDToQueue(data[0])
+                SoundCloudClient.sharedClient.addID(data[0])
             }
         }
         
