@@ -10,6 +10,15 @@ import Foundation
 
 class SessionManager: NSObject {
 	
+	private(set) var synchingSession: Bool
+	private(set) var sessionUsers: NSSet
+	
+	override init() {
+		synchingSession = false
+		sessionUsers = []
+		super.init()
+	}
+	
 	class func syncSession() {
 		
 	}
