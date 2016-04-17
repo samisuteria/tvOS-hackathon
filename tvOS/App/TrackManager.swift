@@ -11,7 +11,8 @@ import AVKit
 
 class TrackManager: NSObject {
 	
-	static let sharedInstance = TrackManager()
+	// Note: Using Class Methods instead of Singleton
+//	static let sharedInstance = TrackManager() // Guaranteed Singelton
 	
 	private(set) static var isPlayingTrack = false
 	private static var track: Track?
@@ -74,6 +75,7 @@ class TrackManager: NSObject {
 		avPlayer = AVPlayer(playerItem: playerItem)
 		isPlayingTrack = true
 		avPlayer.play()
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackDidFinishPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer)
 	}
 	
 	class func pauseCurrentTrack() {
@@ -81,6 +83,7 @@ class TrackManager: NSObject {
 		guard (track != nil) else { return }
 		isPlayingTrack = false
 		avPlayer.pause()
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: AVPlayerItemDidPlayToEndTimeNotification, object: avPlayer)
 	}
 	
 	class func skipCurrentTrack() {
@@ -94,6 +97,11 @@ class TrackManager: NSObject {
 		queue.removeFirst()
 		NSNotificationCenter.defaultCenter().postNotificationName("RemoveTrackFromQueue", object: nil)
 		playCurrentTrack()
+	}
+	
+	@objc private class func trackDidFinishPlaying() {
+		print("autoplaying next track")
+		skipCurrentTrack()
 	}
 	
 	class func trackForUser(userID: String) -> Track {

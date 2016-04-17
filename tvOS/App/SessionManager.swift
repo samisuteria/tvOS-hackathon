@@ -6,7 +6,7 @@
 //  Copyright © 2016 CGRekt. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class SessionManager: NSObject {
 	
@@ -33,7 +33,7 @@ class SessionManager: NSObject {
 	}
 	
 	class func usersInCurrentSession() -> [User] {
-		let users = [User(userID: "Temp", name: "Temp", emoji: "Temp")]
+		let users = [User(userID: "Temp", name: "Temp", avatar: UIImage())]
 		return users
 	}
 	
