@@ -14,6 +14,7 @@
 		1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE831CC297AB004767AA /* AppDelegate.swift */; };
 		1B6FBE861CC297AB004767AA /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6FBE851CC297AB004767AA /* HomeScreen.swift */; };
 		1B6FBE8B1CC297AB004767AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6FBE8A1CC297AB004767AA /* Assets.xcassets */; };
+		268EB2551CC390CB001652D1 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268EB2541CC390CB001652D1 /* ServerManager.swift */; };
 		B4BAEB971CC2B75B00C6A743 /* SongListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */; };
 		B4BAEB9A1CC2D51800C6A743 /* TrackPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB991CC2D51800C6A743 /* TrackPlayerView.swift */; };
 		B4BAEB9E1CC2EE3000C6A743 /* TrackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAEB9D1CC2EE3000C6A743 /* TrackManager.swift */; };
@@ -32,6 +33,7 @@
 		1B6FBE851CC297AB004767AA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		1B6FBE8A1CC297AB004767AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B6FBE8C1CC297AC004767AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		268EB2541CC390CB001652D1 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		85130C52DCBD4274082A795F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B4BAEB961CC2B75B00C6A743 /* SongListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongListItem.swift; sourceTree = "<group>"; };
 		B4BAEB991CC2D51800C6A743 /* TrackPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayerView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				1B570FBE1CC2D88B0055B7D6 /* Models */,
 				B4BAEB9F1CC2EE3B00C6A743 /* Managers */,
 				1B570FC11CC2DAFA0055B7D6 /* Helpers.swift */,
+				268EB2541CC390CB001652D1 /* ServerManager.swift */,
 				1B6FBE8A1CC297AB004767AA /* Assets.xcassets */,
 				1B6FBE8C1CC297AC004767AA /* Info.plist */,
 			);
@@ -270,6 +273,7 @@
 				B4BAEB9E1CC2EE3000C6A743 /* TrackManager.swift in Sources */,
 				B4BAEBA31CC2EF5800C6A743 /* User.swift in Sources */,
 				B4BAEB9A1CC2D51800C6A743 /* TrackPlayerView.swift in Sources */,
+				268EB2551CC390CB001652D1 /* ServerManager.swift in Sources */,
 				1B6FBE841CC297AB004767AA /* AppDelegate.swift in Sources */,
 				B4BAEBA11CC2EF1900C6A743 /* SessionManager.swift in Sources */,
 			);
