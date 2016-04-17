@@ -61,4 +61,8 @@ extension RoomListViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        serverManager.joinRoom(serverManager.roomnames[indexPath.row])
+    }
 }

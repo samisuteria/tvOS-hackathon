@@ -19,6 +19,10 @@ class ServerManager {
         socket.connect()
     }
     
+    func joinRoom(room: String) {
+        socket.emit("joinRoom", withItems: [room])
+    }
+    
     private func addHandlers() {
         
         socket.on("connection") { (data: [AnyObject], ack: SocketAckEmitter) in
