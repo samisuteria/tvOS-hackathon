@@ -23,6 +23,10 @@ class ServerManager {
         socket.emit("joinRoom", withItems: [room])
     }
     
+    func addSong(track: SoundCloudTrackModel) {
+        socket.emit("addSong", withItems: [track.id])
+    }
+    
     private func addHandlers() {
         
         socket.on("connection") { (data: [AnyObject], ack: SocketAckEmitter) in
