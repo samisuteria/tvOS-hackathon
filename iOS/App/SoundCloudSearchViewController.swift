@@ -10,7 +10,11 @@ class SoundCloudSearchViewController: UIViewController {
         
         view.backgroundColor = .grayColor()
         
-        SoundCloudClient.sharedClient.search("asdas", artist: "asdasd")
+        SoundCloudClient.sharedClient.search("childish") { (tracks) in
+            if let tracks = tracks {
+                print(tracks.count)
+            }
+        }
         
     }
 
