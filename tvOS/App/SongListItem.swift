@@ -15,7 +15,7 @@ class SongListItem: UITableViewCell {
 	private var songLabel: UILabel
 	
 	struct Constants {
-		static let avatarIconSize = CGSize(width: 30, height: 30)
+		static let avatarIconSize = CGSize(width: 40, height: 40)
 		static let padding: CGFloat = 20
 	}
 
@@ -25,7 +25,7 @@ class SongListItem: UITableViewCell {
 		// TODO: dynamic names
 		songName = "CGRekt song"
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		backgroundColor = UIColor.orangeColor()
+		backgroundColor = UIColor.whiteColor()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
