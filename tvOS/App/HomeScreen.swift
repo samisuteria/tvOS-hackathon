@@ -45,6 +45,7 @@ class HomeScreen: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "AddTrackToQueue", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "RemoveTrackFromQueue", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(trackQueueModified), name: "UpdateQueue", object: nil)
 		// FIXME: hardcode until can grab from server
 		let track = Track(title: "Track Title 1", artist: "Fake Artist 1", soundcloudID: "256733104", URL: NSURL(string: "https://api.soundcloud.com/tracks/256733104/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
 		let track2 = Track(title: "Track Title 2", artist: "Fake Artist 2", soundcloudID: "209315983", URL: NSURL(string: "https://api.soundcloud.com/tracks/209315983/stream?client_id=4f42baeb1a55ace1b73df9b19ba08107")!, userID: "123")
@@ -108,12 +109,20 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		if TrackManager.currentQueue().count == 0 {
+			return 50
+		}
 		return 0
 	}
 	
 	func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = UIView(frame: CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: 1))
-		footerView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+		let footerView = UIView(frame: CGRect(x: 0, y: 0, width: ceil(view.bounds.width * Constants.tableViewWidthRatio), height: 50))
+		let label = UILabel(frame: footerView.frame)
+		label.text = "No tracks are queued"
+		label.font = UIFont.systemFontOfSize(18.0)
+		label.textAlignment = .Center
+		footerView.addSubview(label)
+		footerView.backgroundColor = UIColor.whiteColor()
 		return footerView
 	}
 	

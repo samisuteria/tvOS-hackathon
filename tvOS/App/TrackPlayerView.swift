@@ -78,7 +78,6 @@ class TrackPlayerView: UIView {
 		visualEffectView.frame = bounds
 		
 		songLabel.frame = CGRect(x: Constants.padding, y: Constants.padding, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
-		//songLabel.frame = CGRect(x: Constants.padding, y: songLabelYPadding + avPlayerContainer.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: ceil(songLabel.bounds.height))
 		avPlayerContainer.frame = CGRect(x: Constants.padding, y: Constants.padding + songLabel.bounds.maxY, width: ceil(bounds.width - 2 * Constants.padding), height: Constants.containerHeight)
 		
 		
@@ -126,6 +125,10 @@ class TrackPlayerView: UIView {
 	@objc private func trackPlayerViewSkipTrack(sender: AnyObject) {
 		TrackManager.skipCurrentTrack()
 		updateTrackLabel()
+		updateControlButtons()
+	}
+	
+	@objc private func updateControlButtons() {
 		if TrackManager.isPlayingTrack {
 			playStopButton.setBackgroundImage(pauseImage, forState: .Normal)
 			playStopButton.setBackgroundImage(pauseImage, forState: .Focused)
