@@ -32,7 +32,7 @@ rooms.push(randomRoomName())
 
 console.log(rooms)
 
-//Server
+//Express
 
 app.get('/', function(req, res) {
 	res.send("CGRekt Server");
