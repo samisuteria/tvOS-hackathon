@@ -1,6 +1,5 @@
 import Foundation
 import NPAudioStream
-import Parse
 import Alamofire
 
 class SoundCloudClient: NSObject {
@@ -22,8 +21,6 @@ class SoundCloudClient: NSObject {
         super.init()
         audioStream.delegate = self
         session = Session()
-        session.name = RandomName.generateRandomName()
-        session.saveInBackground()
     }
     
     private func createURL(soundcloudTrackID: String) -> NSURL? {
@@ -104,8 +101,3 @@ extension SoundCloudClient {
         }
     }
 }
-
-//Test Tracks
-//api.soundcloud.com/tracks/221228549
-//api.soundcloud.com/tracks/209315983 //shia the tank engine
-//api.soundcloud.com/tracks/121879277

@@ -1,23 +1,12 @@
 PODS:
   - Alamofire (3.3.1)
-  - Bolts/Tasks (1.7.0)
-  - Digits (2.0.2):
-    - TwitterCore (= 2.0.2)
-  - Fabric (1.6.7)
   - NPAudioStream (0.1.7)
-  - Parse (1.13.0):
-    - Bolts/Tasks (~> 1.6)
   - SnapKit (0.20.0)
   - Socket.IO-Client-Swift (6.1.0)
-  - TwitterCore (2.0.2):
-    - Fabric
 
 DEPENDENCIES:
   - Alamofire
-  - Digits
-  - Fabric
   - NPAudioStream (from `https://github.com/NoonPacific/NPAudioStream.git`)
-  - Parse
   - SnapKit
   - Socket.IO-Client-Swift (~> 6.1.0)
 
@@ -32,13 +21,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
-  Digits: a5c8ddfed18d5e0496e9b6f459f0bca44de588db
-  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   NPAudioStream: f1c555c7022abe032c87311914c19b725b59de63
-  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
   Socket.IO-Client-Swift: b0ebbd80f039992bad6d0f74730b5a540d979520
-  TwitterCore: 0f44d8980a6879d5205dcb4e010d15e643e56fa0
 
 COCOAPODS: 0.39.0

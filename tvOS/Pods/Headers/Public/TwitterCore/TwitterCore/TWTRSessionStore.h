@@ -1,1 +1,0 @@
-../../../../TwitterCore/tvOS/TwitterCore.framework/Headers/TWTRSessionStore.h
