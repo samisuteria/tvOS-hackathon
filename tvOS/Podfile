@@ -4,8 +4,5 @@ use_frameworks!
 
 pod 'SnapKit'
 pod 'Alamofire'
-pod 'Fabric'
-pod 'Digits'
 pod 'NPAudioStream', :git => 'https://github.com/NoonPacific/NPAudioStream.git'
-pod 'Parse'
 pod 'Socket.IO-Client-Swift', '~> 6.1.0'
