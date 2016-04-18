@@ -185,7 +185,7 @@ extension HomeScreen: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let trackToRemove = TrackManager.currentQueue()[indexPath.row] {
-            TrackManager.removeTrackFromQueue(trackToRemove)
+            TrackManager.loadAndPlayTrack(trackToRemove)
         }
 	}
 

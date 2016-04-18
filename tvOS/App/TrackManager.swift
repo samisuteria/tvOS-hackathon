@@ -72,6 +72,7 @@ class TrackManager: NSObject {
 	class func loadAndPlayTrack(trackToLoad: Track) {
 		track = trackToLoad
 		removeTrackFromQueue(trackToLoad)
+		NSNotificationCenter.defaultCenter().postNotificationName("UpdateQueue", object: nil)
 		playCurrentTrack()
 	}
 	

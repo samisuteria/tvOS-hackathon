@@ -169,9 +169,6 @@ class TrackPlayerView: UIView {
 		} else {
 			playStopButton.setBackgroundImage(playImage, forState: .Normal)
 			playStopButton.setBackgroundImage(pauseImageWhite, forState: .Focused)
-		} else {
-			playStopButton.setBackgroundImage(playImage, forState: .Normal)
-			playStopButton.setBackgroundImage(playImageWhite, forState: .Focused)
 		}
 	}
 
